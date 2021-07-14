@@ -1,20 +1,18 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es6",
     "module": "commonjs",
     "jsx": "preserve",
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": ["dom", "esnext"],
     "strict": true,
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowJs": true,
+    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"]
+      "@components/*": ["components/*"]
     }
   },
-  "include": ["./src/**/*"],
+  "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "public", ".cache"]
 }

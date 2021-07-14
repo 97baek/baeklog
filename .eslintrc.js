@@ -2,20 +2,21 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: true,
   },
+  // alias: [['@components', './src/components']],
   parser: '@typescript-eslint/parser',
   extends: [
     'eslint:recommended',
-    'react-app',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
     'plugin:prettier/recommended',
+    'plugin:react/recommended',
     'prettier',
-    'prettier/@typescript-eslint',
-    'prettier/react',
   ],
   settings: {
     react: {
       version: 'detect',
+    },
+    'import/resolver': {
+      alias: [['@components', './src/components']],
     },
   },
   env: {
@@ -32,7 +33,8 @@ module.exports = {
     sourceType: 'module',
   },
   rules: {
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   overrides: [],
-}
+};
