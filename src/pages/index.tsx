@@ -1,10 +1,12 @@
-import * as React from "react"
-
+import * as React from 'react';
+import Taskbar from '@components/Taskbar';
 
 // markup
 const IndexPage = () => {
   return (
-    <div>BAEKLOG</div>
-  )
-}
-export default IndexPage
+    <>
+      <Taskbar />
+    </>
+  );
+};
+export default IndexPage;
