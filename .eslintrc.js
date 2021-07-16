@@ -2,11 +2,11 @@ module.exports = {
   globals: {
     __PATH_PREFIX__: true,
   },
-  // alias: [['@components', './src/components']],
-  parser: '@typescript-eslint/parser',
+  // alias: [['components', './src/components']],
+  parser: 'typescript-eslint/parser',
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    'plugin:typescript-eslint/recommended',
     'plugin:prettier/recommended',
     'plugin:react/recommended',
     'prettier',
@@ -16,7 +16,13 @@ module.exports = {
       version: 'detect',
     },
     'import/resolver': {
-      alias: [['@components', './src/components']],
+      alias: [
+        ['@components', './src/components'],
+        ['@context', './src/context'],
+        ['@pages', './src/pages'],
+        ['@types', './src/types'],
+        ['@hooks', './src/hooks'],
+      ],
     },
   },
   env: {
@@ -24,7 +30,7 @@ module.exports = {
     node: true,
     es6: true,
   },
-  plugins: ['@typescript-eslint', 'prettier', 'react'],
+  plugins: ['typescript-eslint', 'prettier', 'react'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -34,7 +40,7 @@ module.exports = {
   },
   rules: {
     'react/prop-types': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    'typescript-eslint/explicit-module-boundary-types': 'off',
   },
   overrides: [],
 };

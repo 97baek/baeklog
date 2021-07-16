@@ -10,7 +10,11 @@
     "allowJs": true,
     "baseUrl": "./src",
     "paths": {
-      "@components/*": ["components/*"]
+      "@components/*": ["components/*"],
+      "@context/*": ["context/*"],
+      "@pages/*": ["pages/*"],
+      "@types/*": ["types/*"],
+      "@hooks/*": ["hooks/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
