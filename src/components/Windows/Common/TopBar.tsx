@@ -8,13 +8,14 @@ interface IProps {
 }
 
 const TopBar = ({ icon, title }: IProps) => {
+  // console.log(title);
   return (
     <Container>
       <Info>
         {icon}
         <p>{title}</p>
       </Info>
-      <Button state={title} />
+      <Button title={title} />
     </Container>
   );
 };

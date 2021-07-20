@@ -1,6 +1,6 @@
 import React, { createContext, useState } from 'react';
 
-type ContextType = [boolean, boolean, boolean, (state: string) => void, (state: string) => void];
+type ContextType = [number, number, number, (state: string) => void, (state: string) => void];
 
 export const WindowContext = createContext<ContextType>({} as ContextType);
 
@@ -9,24 +9,22 @@ interface IChildren {
 }
 
 function WindowProvider({ children }: IChildren) {
-  const [isProfileOpened, setIsProfileOpened] = useState(false);
-  const [isProjectsOpened, setIsProjectsOpened] = useState(false);
-  const [isBlogOpened, setIsBlogOpened] = useState(false);
+  const [isProfileOpened, setIsProfileOpened] = useState(-1);
+  const [isProjectsOpened, setIsProjectsOpened] = useState(-1);
+  const [isBlogOpened, setIsBlogOpened] = useState(-1);
+
+  let zIndex = Math.max(isProfileOpened, isProjectsOpened, isBlogOpened);
 
   const openWindow = (state: string) => {
-    if (state === 'profile') setIsProfileOpened(true);
-    else if (state === 'projects') setIsProjectsOpened(true);
-    else if (state === 'blog') setIsBlogOpened(true);
-
-    console.log(state, isProfileOpened, isProjectsOpened, isBlogOpened, '변경!');
+    if (state === 'profile') setIsProfileOpened(zIndex + 1);
+    else if (state === 'projects') setIsProjectsOpened(zIndex + 1);
+    else if (state === 'blog') setIsBlogOpened(zIndex + 1);
   };
 
   const closeWindow = (state: string) => {
-    if (state === 'profile') setIsProfileOpened(false);
-    else if (state === 'projects') setIsProjectsOpened(false);
-    else if (state === 'blog') setIsBlogOpened(false);
-
-    console.log(state, isProfileOpened, isProjectsOpened, isBlogOpened, '변경!');
+    if (state === 'profile') setIsProfileOpened(-1);
+    else if (state === 'projects') setIsProjectsOpened(-1);
+    else if (state === 'blog') setIsBlogOpened(-1);
   };
 
   return (
