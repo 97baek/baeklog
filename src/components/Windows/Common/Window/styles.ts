@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 interface IProps {}
 
-export const WindowWrap = styled.div`
+export const WindowWrap = styled.div<{ isOpen: boolean }>`
   position: absolute;
   top: 0;
   left: 0;
