@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 interface IProps {
-  isOpen: number;
+  isOpened: boolean;
+  isShowing: number;
 }
 
 export const WindowWrap = styled.div<IProps>`
@@ -18,7 +19,8 @@ export const WindowWrap = styled.div<IProps>`
   justify-content: flex-start;
   align-items: flex-start;
   transition: all 0.5s ease 0s;
-  z-index: ${(props) => props.isOpen};
+  z-index: ${(props) => props.isShowing};
+  display: ${(props) => (props.isOpened ? 'block' : 'none')};
   cursor: default;
 `;
 

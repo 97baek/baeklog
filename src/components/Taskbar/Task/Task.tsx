@@ -8,14 +8,20 @@ interface IProps {
 }
 
 const Task = ({ tasks }: IProps) => {
-  const [, , , openWindow] = useWindowContext();
-  // console.log(tasks);
+  const [, , , isProfileOpened, isProjectsOpened, isBlogOpened, openWindow, , showWindow] =
+    useWindowContext();
+
+  const onClickTask = (task: string) => {
+    openWindow(task);
+    showWindow(task);
+  };
+
   return (
     <>
       <TaskIcons>
         {tasks.map((task: ITask) => (
-          <TaskIcon key={task.id} onClick={() => openWindow(task.name)}>
-            {task.name}
+          <TaskIcon key={task.id} onClick={() => onClickTask(task.name)}>
+            {task.name} {task.isOpened ? '열림!!' : '닫힘'}
           </TaskIcon>
         ))}
       </TaskIcons>

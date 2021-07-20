@@ -6,17 +6,34 @@ import Projects from './Projects';
 import { useWindowContext } from '@hooks/useWindowContext';
 
 const Windows = () => {
-  const [isProfileOpened, isProjectsOpened, isBlogOpened] = useWindowContext();
+  const [
+    isProfileShowing,
+    isProjectsShowing,
+    isBlogShowing,
+    isProfileOpened,
+    isProjectsOpened,
+    isBlogOpened,
+  ] = useWindowContext();
 
   return (
     <>
-      <WindowLayout icon="p" title="profile" isOpen={isProfileOpened}>
+      <WindowLayout
+        icon="p"
+        title="profile"
+        isOpened={isProfileOpened}
+        isShowing={isProfileShowing}
+      >
         <Profile />
       </WindowLayout>
-      <WindowLayout icon="pr" title="projects" isOpen={isProjectsOpened}>
+      <WindowLayout
+        icon="pr"
+        title="projects"
+        isOpened={isProjectsOpened}
+        isShowing={isProjectsShowing}
+      >
         <Projects />
       </WindowLayout>
-      <WindowLayout icon="B" title="blog" isOpen={isBlogOpened}>
+      <WindowLayout icon="B" title="blog" isOpened={isBlogOpened} isShowing={isBlogShowing}>
         <Blog />
       </WindowLayout>
     </>
