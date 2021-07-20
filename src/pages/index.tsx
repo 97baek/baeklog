@@ -1,14 +1,14 @@
 import * as React from 'react';
-import Taskbar from '@components/Taskbar';
 import styled from 'styled-components';
+import Taskbar from '@components/Taskbar';
 import Layout from '@components/Layout';
-import Window from '@components/Window';
+import Windows from '@components/Windows';
 
 const IndexPage = () => {
   return (
     <Layout>
       <WallPaper />
-      <Window />
+      <Windows />
       <Taskbar />
     </Layout>
   );

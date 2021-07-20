@@ -1,5 +1,7 @@
 import styled from 'styled-components';
 
+interface IProps {}
+
 export const WindowWrap = styled.div`
   position: absolute;
   top: 0;
@@ -16,6 +18,7 @@ export const WindowWrap = styled.div`
   transition: all 0.5s ease 0s;
   z-index: 104;
   cursor: default;
+  display: ${(props) => (props.isOpen === true ? 'block' : 'none')};
 `;
 
 export const WindowContainer = styled.div`

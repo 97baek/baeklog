@@ -1,12 +1,13 @@
 import React from 'react';
-import TopBar from './Common/TopBar';
+import TopBar from '@components/Windows/Common/TopBar';
 import { Contents, WindowContainer, WindowWrap } from './styles';
 
-const Window = ({ icon, title, children }) => {
+const Window = ({ icon, title, isOpen, children }: any) => {
+  console.log(isOpen);
   return (
-    <WindowWrap>
+    <WindowWrap isOpen={isOpen}>
       <WindowContainer>
-        <TopBar icon={'P'} title={'프로필'} />
+        <TopBar icon={icon} title={title} />
         <Contents>{children}</Contents>
       </WindowContainer>
     </WindowWrap>
