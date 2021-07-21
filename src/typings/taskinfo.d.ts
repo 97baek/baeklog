@@ -1,4 +1,4 @@
-export interface ITask {
+export interface ITaskInfo {
   id: number;
   name: string;
   isOpened: boolean;

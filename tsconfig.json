@@ -8,13 +8,15 @@
     "isolatedModules": true,
     "esModuleInterop": true,
     "allowJs": true,
+    "typeRoots": ["node_modules/@types", "src/typings"],
     "baseUrl": "./src",
     "paths": {
       "@components/*": ["components/*"],
       "@context/*": ["context/*"],
       "@pages/*": ["pages/*"],
-      "@types/*": ["types/*"],
-      "@hooks/*": ["hooks/*"]
+      "@typings/*": ["typings/*"],
+      "@hooks/*": ["hooks/*"],
+      "@lib/*": ["lib/*"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx"],
