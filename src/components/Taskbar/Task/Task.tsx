@@ -1,15 +1,14 @@
 import { useWindowContext } from '@hooks/useWindowContext';
 import React from 'react';
 import { ITask } from 'types/task';
-import { TaskIcon, TaskIcons } from './styles';
+import { TaskIcon, TaskIcons, ActiveTask } from './styles';
 
 interface IProps {
   tasks: ITask[];
 }
 
 const Task = ({ tasks }: IProps) => {
-  const [, , , isProfileOpened, isProjectsOpened, isBlogOpened, openWindow, , showWindow] =
-    useWindowContext();
+  const [, , , , , , openWindow, , showWindow] = useWindowContext();
 
   const onClickTask = (task: string) => {
     openWindow(task);
@@ -21,7 +20,7 @@ const Task = ({ tasks }: IProps) => {
       <TaskIcons>
         {tasks.map((task: ITask) => (
           <TaskIcon key={task.id} onClick={() => onClickTask(task.name)}>
-            {task.name} {task.isOpened ? '열림!!' : '닫힘'}
+            {task.name} {task.isOpened ? <ActiveTask /> : ''}
           </TaskIcon>
         ))}
       </TaskIcons>

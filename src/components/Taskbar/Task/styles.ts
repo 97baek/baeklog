@@ -16,5 +16,18 @@ export const TaskIcon = styled.li`
 
   &:hover {
     background-color: #e9e9e9;
+    div {
+      transform: scaleX(1.2);
+    }
   }
+`;
+
+export const ActiveTask = styled.div`
+  position: fixed;
+  width: 50px;
+  height: 4px;
+  flex-wrap: wrap;
+  align-self: flex-end;
+  background: rgb(55, 71, 255);
+  transition: all 0.1s ease 0s;
 `;

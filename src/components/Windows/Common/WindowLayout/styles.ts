@@ -20,7 +20,7 @@ export const WindowWrap = styled.div<IProps>`
   align-items: flex-start;
   transition: all 0.5s ease 0s;
   z-index: ${(props) => props.isShowing};
-  display: ${(props) => (props.isOpened ? 'block' : 'none')};
+  display: ${(props) => (props.isOpened && props.isShowing > -1 ? 'block' : 'none')};
   cursor: default;
 `;
 
@@ -39,5 +39,10 @@ export const WindowContainer = styled.div`
 `;
 
 export const Contents = styled.div`
+  width: 100%;
+  height: calc(100% - 31px);
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 300px;
   background-color: gray;
 `;
