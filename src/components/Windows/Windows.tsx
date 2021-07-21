@@ -17,25 +17,31 @@ const Windows = () => {
 
   return (
     <>
-      <WindowLayout
-        icon="p"
-        title="profile"
-        isOpened={isProfileOpened}
-        isShowing={isProfileShowing}
-      >
-        <Profile />
-      </WindowLayout>
-      <WindowLayout
-        icon="pr"
-        title="projects"
-        isOpened={isProjectsOpened}
-        isShowing={isProjectsShowing}
-      >
-        <Projects />
-      </WindowLayout>
-      <WindowLayout icon="B" title="blog" isOpened={isBlogOpened} isShowing={isBlogShowing}>
-        <Blog />
-      </WindowLayout>
+      {isProfileOpened && (
+        <WindowLayout
+          icon="p"
+          title="profile"
+          isOpened={isProfileOpened}
+          isShowing={isProfileShowing}
+        >
+          <Profile />
+        </WindowLayout>
+      )}
+      {isProjectsOpened && (
+        <WindowLayout
+          icon="pr"
+          title="projects"
+          isOpened={isProjectsOpened}
+          isShowing={isProjectsShowing}
+        >
+          <Projects />
+        </WindowLayout>
+      )}
+      {isBlogOpened && (
+        <WindowLayout icon="B" title="blog" isOpened={isBlogOpened} isShowing={isBlogShowing}>
+          <Blog />
+        </WindowLayout>
+      )}
     </>
   );
 };

@@ -20,7 +20,6 @@ export const WindowWrap = styled.div<IProps>`
   align-items: flex-start;
   transition: all 0.5s ease 0s;
   z-index: ${(props) => props.isShowing};
-  display: ${(props) => (props.isOpened && props.isShowing > -1 ? 'block' : 'none')};
   cursor: default;
 `;
 
