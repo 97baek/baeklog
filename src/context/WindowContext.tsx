@@ -29,29 +29,22 @@ function WindowProvider({ children }: IChildren) {
 
   let zIndex = Math.max(isProfileShowing, isProjectsShowing, isBlogShowing);
 
-  const openWindow = (state: string) => {
-    if (state === 'profile') setIsProfileOpened(true);
-    else if (state === 'projects') setIsProjectsOpened(true);
-    else if (state === 'blog') setIsBlogOpened(true);
+  const toggleWindow = (state: string, control: boolean) => {
+    if (state === 'profile') setIsProfileOpened(control);
+    else if (state === 'projects') setIsProjectsOpened(control);
+    else if (state === 'blog') setIsBlogOpened(control);
   };
 
-  const closeWindow = (state: string) => {
-    if (state === 'profile') setIsProfileOpened(false);
-    else if (state === 'projects') setIsProjectsOpened(false);
-    else if (state === 'blog') setIsBlogOpened(false);
+  const controlWindow = (state: string, control: number) => {
+    if (state === 'profile') setIsProfileShowing(control);
+    else if (state === 'projects') setIsProjectsShowing(control);
+    else if (state === 'blog') setIsBlogShowing(control);
   };
 
-  const showWindow = (state: string) => {
-    if (state === 'profile') setIsProfileShowing(zIndex + 1);
-    else if (state === 'projects') setIsProjectsShowing(zIndex + 1);
-    else if (state === 'blog') setIsBlogShowing(zIndex + 1);
-  };
-
-  const minimizeWindow = (state: string) => {
-    if (state === 'profile') setIsProfileShowing(-1);
-    else if (state === 'projects') setIsProjectsShowing(-1);
-    else if (state === 'blog') setIsBlogShowing(-1);
-  };
+  const openWindow = (state: string) => toggleWindow(state, true);
+  const closeWindow = (state: string) => toggleWindow(state, false);
+  const showWindow = (state: string) => controlWindow(state, zIndex + 1);
+  const minimizeWindow = (state: string) => controlWindow(state, -1);
 
   return (
     <WindowContext.Provider
