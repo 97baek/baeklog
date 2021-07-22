@@ -5,7 +5,7 @@ import { Contents, WindowContainer, WindowWrap } from './styles';
 const Window = ({ icon, title, isShowing, isOpened, children }: any) => {
   // console.log(isOpened);
   return (
-    <WindowWrap isShowing={isShowing} isOpened={isOpened}>
+    <WindowWrap isShowing={isShowing}>
       <WindowContainer>
         <TopBar icon={icon} title={title} />
         <Contents>{children}</Contents>
