@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Taskbar from '@components/Taskbar';
 import Layout from '@components/Layout';
 import Windows from '@components/Windows';
-import { ITaskInfo } from '@typings/taskinfo';
-import { useWindowContext } from '@hooks/useWindowContext';
 import DesktopIcons from '@components/DesktopIcons';
 
 const IndexPage = () => {
