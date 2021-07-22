@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 interface IProps {
-  isOpened: boolean;
   isShowing: number;
 }
 
@@ -15,7 +14,7 @@ export const WindowWrap = styled.div<IProps>`
   min-width: 200px;
   min-height: 30px;
   border: none;
-  display: flex;
+  display: ${(props) => (props.isShowing > -1 ? 'flex' : 'none')};
   justify-content: flex-start;
   align-items: flex-start;
   transition: all 0.5s ease 0s;
