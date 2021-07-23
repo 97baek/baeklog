@@ -13,10 +13,11 @@ export const Icon = styled.div<{ clicked: boolean }>`
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
-  background: ${(props) => (props.clicked ? '#FFFFFF55' : '')};
+  background: ${(props) => props.clicked && '#FFFFFF55'};
+  border: ${(props) => props.clicked && '1px solid #ffffff77;'};
 
   &:hover {
     background: ${(props) => (props.clicked ? '#FFFFFF55' : '#FFFFFF33')};
-    border: 2px solid #ffffff77;
+    border: 1px solid #ffffff77;
   }
 `;
