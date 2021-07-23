@@ -5,6 +5,7 @@ import { Bar, LeftContents, RightContents } from './styles';
 import MenuButton from './Menu/MenuButton';
 import Task from './Task';
 import Clock from './Clock';
+import DesktopShortcut from './DesktopShortcut';
 
 const Taskbar = () => {
   const [, , , isProfileOpened, isProjectsOpened, isBlogOpened] = useWindowContext();
@@ -37,6 +38,7 @@ const Taskbar = () => {
         </LeftContents>
         <RightContents>
           <Clock />
+          <DesktopShortcut />
         </RightContents>
       </Bar>
     </>
