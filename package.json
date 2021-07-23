@@ -16,6 +16,7 @@
   },
   "dependencies": {
     "babel-plugin-styled-components": "^1.13.2",
+    "dayjs": "^1.10.6",
     "gatsby": "^3.9.0",
     "gatsby-plugin-alias-imports": "^1.0.5",
     "gatsby-plugin-gatsby-cloud": "^2.9.0",
