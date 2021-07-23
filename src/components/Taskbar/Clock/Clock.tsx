@@ -3,11 +3,11 @@ import 'dayjs/locale/ko';
 import React, { useEffect, useState } from 'react';
 import { ClockBox, Day, Time } from './styles';
 
+dayjs.locale('ko');
+
 const Clock = () => {
-  dayjs.locale('ko');
   const MINUTE = 60000;
   const [time, setTime] = useState(dayjs());
-  console.log(time);
   let timeInterval: NodeJS.Timeout;
 
   const changeTime = () => {

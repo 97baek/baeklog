@@ -1,13 +1,16 @@
-import { useWindowContext } from '@hooks/useWindowContext';
 import React from 'react';
-import { ITask } from 'types/task';
+import { useWindowContext } from '@hooks/useWindowContext';
+import { ITaskInfo } from '@typings/taskinfo';
+import { Bar, LeftContents, RightContents } from './styles';
 import MenuButton from './Menu/MenuButton';
-import { Bar } from './styles';
 import Task from './Task';
+import Clock from './Clock';
 
 const Taskbar = () => {
   const [, , , isProfileOpened, isProjectsOpened, isBlogOpened] = useWindowContext();
-  const tasks: ITask[] = [
+
+  // TODO: 바탕화면 보기 컴포넌트 추가
+  const tasks: ITaskInfo[] = [
     {
       id: 1,
       name: 'profile',
@@ -24,11 +27,17 @@ const Taskbar = () => {
       isOpened: isBlogOpened,
     },
   ];
+
   return (
     <>
       <Bar>
-        <MenuButton />
-        <Task tasks={tasks} />
+        <LeftContents>
+          <MenuButton />
+          <Task tasks={tasks} />
+        </LeftContents>
+        <RightContents>
+          <Clock />
+        </RightContents>
       </Bar>
     </>
   );
