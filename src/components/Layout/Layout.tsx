@@ -17,7 +17,9 @@ const Layout = ({ children }: IProps) => {
   return (
     <>
       <GlobalStyle />
-      <main style={{ margin: '0px', padding: '0px' }}>{children}</main>
+      <main style={{ margin: '0px', padding: '0px', position: 'relative', height: '100vh' }}>
+        {children}
+      </main>
     </>
   );
 };

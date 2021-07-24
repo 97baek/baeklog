@@ -2,15 +2,23 @@ import styled from 'styled-components';
 
 interface IProps {
   isShowing: number;
+  style: {
+    posX: number;
+    posY: number;
+  };
 }
 
+// width: 100%;
+//   height: calc(100% - 60px);
+
+// transform: translate(${(props) => props.style.posX}px, ${(props) => props.style.posY}px);
+// transform: translate(0px, -500px);
 export const WindowWrap = styled.div<IProps>`
   position: absolute;
-  top: 0;
-  left: 0;
-  transform: translate(0px, 0px);
-  width: 100%;
-  height: calc(100% - 60px);
+  top: 0px;
+  left: 0px;
+  width: 500px;
+  height: 300px;
   min-width: 200px;
   min-height: 30px;
   border: none;
