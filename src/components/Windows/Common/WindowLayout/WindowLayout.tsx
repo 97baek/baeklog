@@ -13,21 +13,33 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
+  const [currentSize, setcurrentSize] = useState({ w: 800, h: 600, isFull: false });
 
   const styleProps = {
-    posX: currentPos.x,
-    posY: currentPos.y,
+    transform: currentSize.isFull
+      ? `translate(0px, 0px)`
+      : `translate(${currentPos.x}px, ${currentPos.y}px)`,
+    width: currentSize.isFull ? '100%' : `${currentSize.w}px`,
+    height: currentSize.isFull ? '100%' : `${currentSize.h}px`,
   };
-
-  console.log('상위 컴포넌트 position값', styleProps.posX, styleProps.posY);
 
   return (
     <WindowWrap
       isShowing={isShowing}
-      style={{ transform: `translate(${styleProps.posX}px, ${styleProps.posY}px)` }}
+      style={{
+        transform: styleProps.transform,
+        width: styleProps.width,
+        height: styleProps.height,
+      }}
     >
       <WindowContainer>
-        <TopBar setCurrentPos={setCurrentPos} icon={icon} title={title} />
+        <TopBar
+          setCurrentPos={setCurrentPos}
+          setCurrentSize={setcurrentSize}
+          currentSize={currentSize}
+          icon={icon}
+          title={title}
+        />
         <Contents>{children}</Contents>
       </WindowContainer>
     </WindowWrap>

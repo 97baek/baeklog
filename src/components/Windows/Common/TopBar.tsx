@@ -6,11 +6,23 @@ interface IProps {
   icon: string;
   title: string;
   setCurrentPos: any;
+  setCurrentSize: any;
+  currentSize: { w: number; h: number; isFull: boolean };
 }
 
-const TopBar = ({ icon, title, setCurrentPos }: IProps) => {
+const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [delta, setDelta] = useState({ x: 0, y: 0 });
+  const [prevSize, setPrevSize] = useState({ w: currentSize.w, h: currentSize.h });
+
+  const toggleMaximizingWindow = () => {
+    if (!currentSize.isFull) {
+      setPrevSize({ w: currentSize.w, h: currentSize.h });
+      setCurrentSize({ isFull: true });
+    } else {
+      setCurrentSize({ w: prevSize.w, h: prevSize.h, isFull: false });
+    }
+  };
 
   const initWindowMove = (e: any) => {
     e.preventDefault();
@@ -58,12 +70,12 @@ const TopBar = ({ icon, title, setCurrentPos }: IProps) => {
   };
 
   return (
-    <Container ref={ref} onMouseDown={initWindowMove}>
-      <Info>
+    <Container>
+      <Info ref={ref} onMouseDown={initWindowMove} onDoubleClick={toggleMaximizingWindow}>
         {icon}
         <p>{title}</p>
       </Info>
-      <Button title={title} />
+      <Button toggleMaximizingWindow={toggleMaximizingWindow} title={title} />
     </Container>
   );
 };
@@ -81,8 +93,19 @@ const Container = styled.div`
 `;
 
 const Info = styled.div`
+  width: max-content;
+  height: 30px;
   display: flex;
+  -webkit-box-pack: start;
+  justify-content: flex-start;
+  -webkit-box-align: center;
   align-items: center;
+  flex-wrap: wrap;
+  border-radius: 3px;
+  background: rgb(255, 255, 255);
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  padding-left: 5px;
   p {
     margin-left: 8px;
   }

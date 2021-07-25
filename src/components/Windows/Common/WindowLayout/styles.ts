@@ -17,8 +17,7 @@ export const WindowWrap = styled.div<IProps>`
   position: absolute;
   top: 0px;
   left: 0px;
-  width: 500px;
-  height: 300px;
+
   min-width: 200px;
   min-height: 30px;
   border: none;

@@ -4,15 +4,16 @@ import { Button, ButtonWrap } from './styles';
 
 interface IProps {
   title: string;
+  toggleMaximizingWindow: () => void;
 }
 
-const Buttons = ({ title }: IProps) => {
+const Buttons = ({ title, toggleMaximizingWindow }: IProps) => {
   const [, , , , , , , closeWindow, , minimizeWindow] = useWindowContext();
-  console.log(title);
 
   return (
     <ButtonWrap>
       <Button onClick={() => minimizeWindow(title)}>ㅡ</Button>
+      <Button onClick={toggleMaximizingWindow}>ㅁ</Button>
       <Button onClick={() => closeWindow(title)}>X</Button>
     </ButtonWrap>
   );
