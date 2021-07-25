@@ -5,11 +5,10 @@ import Button from './Buttons';
 interface IProps {
   icon: string;
   title: string;
-  setPosX: any;
-  setPosY: any;
+  setCurrentPos: any;
 }
 
-const TopBar = ({ icon, title, setPosX, setPosY }: IProps) => {
+const TopBar = ({ icon, title, setCurrentPos }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const [delta, setDelta] = useState({ x: 0, y: 0 });
 
@@ -48,8 +47,7 @@ const TopBar = ({ icon, title, setPosX, setPosY }: IProps) => {
     const windowX = mouseX - gapX;
     const windowY = mouseY - gapY;
 
-    setPosX(windowX);
-    setPosY(windowY);
+    setCurrentPos({ x: windowX, y: windowY });
   };
 
   const endWindowMove = (e: any) => {

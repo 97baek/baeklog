@@ -12,21 +12,14 @@ interface IProps {
 const Window = ({ icon, title, isShowing, children }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  const [posX, setPosX] = useState(0);
-  const [posY, setPosY] = useState(0);
+  const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
 
   const styleProps = {
-    posX,
-    posY,
+    posX: currentPos.x,
+    posY: currentPos.y,
   };
-
-  useEffect(() => {}, [posX, posY]);
 
   console.log('상위 컴포넌트 position값', styleProps.posX, styleProps.posY);
-
-  const onClickWindow = () => {
-    console.log(ref.current);
-  };
 
   return (
     <WindowWrap
@@ -34,7 +27,7 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       style={{ transform: `translate(${styleProps.posX}px, ${styleProps.posY}px)` }}
     >
       <WindowContainer>
-        <TopBar setPosX={setPosX} setPosY={setPosY} icon={icon} title={title} />
+        <TopBar setCurrentPos={setCurrentPos} icon={icon} title={title} />
         <Contents>{children}</Contents>
       </WindowContainer>
     </WindowWrap>
