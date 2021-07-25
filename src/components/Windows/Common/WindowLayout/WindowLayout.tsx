@@ -20,7 +20,7 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       ? `translate(0px, 0px)`
       : `translate(${currentPos.x}px, ${currentPos.y}px)`,
     width: currentSize.isFull ? '100%' : `${currentSize.w}px`,
-    height: currentSize.isFull ? '100%' : `${currentSize.h}px`,
+    height: currentSize.isFull ? 'calc(100vh - 60px)' : `${currentSize.h}px`,
   };
 
   return (
