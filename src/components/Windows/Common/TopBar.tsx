@@ -25,6 +25,7 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
   };
 
   const initWindowMove = (e: any) => {
+    if (currentSize.isFull) return;
     e.preventDefault();
     console.log(ref.current);
     console.log('마우스클릭');
