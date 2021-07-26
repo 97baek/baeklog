@@ -11,9 +11,10 @@ interface IProps {
 }
 
 const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IProps) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const [delta, setDelta] = useState({ x: 0, y: 0 });
   const [prevSize, setPrevSize] = useState({ w: currentSize.w, h: currentSize.h });
+  const [delta, setDelta] = useState({ x: 0, y: 0 });
+  const ref = useRef<HTMLDivElement>(null);
+  const TASKBARHEIGHT = 60;
 
   const toggleMaximizingWindow = () => {
     if (!currentSize.isFull) {
@@ -24,15 +25,15 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     }
   };
 
-  const initWindowMove = (e: any) => {
+  const initWindowMove = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (currentSize.isFull) return;
     e.preventDefault();
-    console.log(ref.current);
-    console.log('마우스클릭');
+
     const mouseX = e.clientX;
     const mouseY = e.clientY;
 
     const windowPos = ref.current?.getBoundingClientRect();
+    console.log(windowPos);
 
     const windowX = windowPos?.x;
     const windowY = windowPos?.y;
@@ -46,10 +47,8 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     window.addEventListener('mouseup', endWindowMove);
   };
 
-  const updateWindowMove = (e: any) => {
+  const updateWindowMove = (e: MouseEvent): void => {
     e.preventDefault();
-    console.log('이동중');
-    console.log(delta);
 
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -60,10 +59,29 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     const windowX = mouseX - gapX;
     const windowY = mouseY - gapY;
 
-    setCurrentPos({ x: windowX, y: windowY });
+    const windowPos = ref.current?.getBoundingClientRect();
+
+    // 창이 화면 바깥(오른쪽 / 아래)으로 나갔는지 판별하는 변수
+    console.log(windowX, windowY);
+    console.log(windowPos?.x, windowPos?.y);
+    const overflowX = windowX + prevSize.w > window.innerWidth;
+    const overflowY = windowY + prevSize.h > window.innerHeight - TASKBARHEIGHT;
+
+    // 창을 오른쪽 / 아래로 맞추기 위한 변수
+    const fitXToEnd = window.innerWidth - prevSize.w;
+    const fitYToEnd = window.innerHeight - prevSize.h - TASKBARHEIGHT;
+
+    // 창이 화면 오른쪽 / 아래로 나갔는지 판별
+    if (overflowX || overflowY) {
+      if (overflowX) setCurrentPos({ x: fitXToEnd, y: windowY });
+      if (overflowY) setCurrentPos({ x: windowX, y: fitYToEnd });
+      if (overflowX && overflowY) setCurrentPos({ x: fitXToEnd, y: fitYToEnd });
+    } else {
+      setCurrentPos({ x: windowX, y: windowY });
+    }
   };
 
-  const endWindowMove = (e: any) => {
+  const endWindowMove = (e: MouseEvent): void => {
     e.preventDefault();
     window.removeEventListener('mousemove', updateWindowMove);
     window.removeEventListener('mouseup', endWindowMove);
@@ -74,7 +92,7 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     <Container>
       <Info ref={ref} onMouseDown={initWindowMove} onDoubleClick={toggleMaximizingWindow}>
         {icon}
-        <p>{title}</p>
+        <span>{title}</span>
       </Info>
       <Button toggleMaximizingWindow={toggleMaximizingWindow} title={title} />
     </Container>
@@ -95,19 +113,16 @@ const Container = styled.div`
 
 const Info = styled.div`
   width: max-content;
-  height: 30px;
+  height: 100%;
   display: flex;
-  -webkit-box-pack: start;
   justify-content: flex-start;
-  -webkit-box-align: center;
   align-items: center;
   flex-wrap: wrap;
   border-radius: 3px;
   background: rgb(255, 255, 255);
-  -webkit-box-flex: 1;
   flex-grow: 1;
   padding-left: 5px;
-  p {
+  span {
     margin-left: 8px;
   }
 `;
