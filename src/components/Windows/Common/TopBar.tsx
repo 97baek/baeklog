@@ -33,7 +33,6 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     const mouseY = e.clientY;
 
     const windowPos = ref.current?.getBoundingClientRect();
-    console.log(windowPos);
 
     const windowX = windowPos?.x;
     const windowY = windowPos?.y;
@@ -62,8 +61,6 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     const windowPos = ref.current?.getBoundingClientRect();
 
     // 창이 화면 바깥(오른쪽 / 아래)으로 나갔는지 판별하는 변수
-    console.log(windowX, windowY);
-    console.log(windowPos?.x, windowPos?.y);
     const overflowX = windowX + prevSize.w > window.innerWidth;
     const overflowY = windowY + prevSize.h > window.innerHeight - TASKBARHEIGHT;
 
@@ -85,7 +82,6 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
     e.preventDefault();
     window.removeEventListener('mousemove', updateWindowMove);
     window.removeEventListener('mouseup', endWindowMove);
-    console.log('마우스뗌');
   };
 
   return (

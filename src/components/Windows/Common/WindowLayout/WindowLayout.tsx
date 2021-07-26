@@ -27,7 +27,6 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     width: currentSize.isFull ? '100%' : `${currentSize.w}px`,
     height: currentSize.isFull ? 'calc(100vh - 60px)' : `${currentSize.h}px`,
   };
-  console.log(currentPos);
 
   return (
     <WindowWrap
@@ -37,7 +36,6 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
         width: styleProps.width,
         height: styleProps.height,
       }}
-      onClick={() => console.log(currentPos)}
     >
       <WindowContainer>
         <TopBar
