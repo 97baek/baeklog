@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import TopBar from '@components/Windows/Common/TopBar';
 import { Contents, WindowContainer, WindowWrap } from './styles';
+import { Rnd } from 'react-rnd';
 
 interface IProps {
   icon: string;
@@ -13,20 +14,17 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [currentSize, setcurrentSize] = useState({ w: 800, h: 600, isFull: false });
-
-  const isOnScreen = (x: number, y: number) => {
-    if (x < 0 && y < 0) return `translate(0px, 0px)`;
-    if (x < 0) return `translate(0px, ${currentPos.y}px)`;
-    if (y < 0) return `translate(${currentPos.x}px, 0px)`;
-    return `translate(${currentPos.x}px, ${currentPos.y}px)`;
-  };
+  const [currentSize, setcurrentSize] = useState({ w: 400, h: 300, isFull: false });
 
   const styleProps = {
-    transform: currentSize.isFull ? `translate(0px, 0px)` : isOnScreen(currentPos.x, currentPos.y),
+    transform: currentSize.isFull
+      ? `translate(0px, 0px)`
+      : `translate(${currentPos.x}px, ${currentPos.y}px)`,
     width: currentSize.isFull ? '100%' : `${currentSize.w}px`,
     height: currentSize.isFull ? 'calc(100vh - 60px)' : `${currentSize.h}px`,
   };
+
+  // console.log(currentPos);
 
   return (
     <WindowWrap
