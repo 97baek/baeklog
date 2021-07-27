@@ -27,6 +27,10 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     cursor: currentCursor,
   };
 
+  const isCursorOnEdge = (axis: number, direction: number) => {
+    return axis >= direction - 5 && axis <= direction + 5;
+  };
+
   const onMouseWindow = (e: React.MouseEvent): void => {
     const mouseX = e.clientX;
     const mouseY = e.clientY;
@@ -35,19 +39,13 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     const right = left + currentSize.w;
     const top = currentPos.y;
     const bottom = top + currentSize.h;
-
-    if (
-      (mouseX >= left - 5 && mouseX <= left + 5) ||
-      (mouseX >= right - 5 && mouseX <= right + 5)
-    ) {
+    if (isCursorOnEdge(mouseX, left) || isCursorOnEdge(mouseX, right)) {
       setCurrentCursor('ew-resize');
-    } else if (
-      (mouseY >= top - 5 && mouseY <= top + 5) ||
-      (mouseY >= bottom - 5 && mouseY <= bottom + 5)
-    ) {
+    } else if (isCursorOnEdge(mouseY, top) || isCursorOnEdge(mouseY, bottom)) {
       setCurrentCursor('ns-resize');
-      console.log('상하');
     } else setCurrentCursor('default');
+
+    // console.log(direction);
   };
 
   const initResizeWindow = (e: React.MouseEvent): void => {
@@ -59,47 +57,49 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     const top = currentPos.y;
     const bottom = top + currentSize.h;
 
-    if (mouseX >= right - 5 && mouseX <= right + 5) {
+    if (
+      isCursorOnEdge(mouseX, right) ||
+      isCursorOnEdge(mouseX, left) ||
+      isCursorOnEdge(mouseY, top) ||
+      isCursorOnEdge(mouseY, bottom)
+    ) {
+      if (isCursorOnEdge(mouseX, right)) setDirection('right');
+      else if (isCursorOnEdge(mouseX, left)) setDirection('left');
+      else if (isCursorOnEdge(mouseY, top)) setDirection('top');
+      else if (isCursorOnEdge(mouseY, bottom)) setDirection('bottom');
+
       setIsResizing(true);
-      setDirection('right');
-    } else if (mouseX >= left - 5 && mouseX <= left + 5) {
-      setIsResizing(true);
-      setDirection('left');
-    } else if (mouseY >= top - 5 && mouseY <= top + 5) {
-      setIsResizing(true);
-      setDirection('top');
-    } else if (mouseY >= bottom - 5 && mouseY <= bottom + 5) {
-      setIsResizing(true);
-      setDirection('bottom');
     }
+
+    console.log(direction);
   };
 
-  const updateResizeWindow = (e) => {
+  const updateResizeWindow = (e: MouseEvent): void => {
     if (isResizing) {
       if (direction === 'right') {
-        let width = e.clientX - currentPos.x;
+        const width = e.clientX - currentPos.x;
         if (width > 300) setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
       } else if (direction === 'left') {
-        let width = currentSize.w + currentPos.x - e.clientX;
+        const width = currentSize.w + currentPos.x - e.clientX;
         if (width > 300) {
           setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
           setCurrentPos({ x: e.clientX, y: currentPos.y });
         }
       } else if (direction === 'top') {
-        let height = currentSize.h + currentPos.y - e.clientY;
+        const height = currentSize.h + currentPos.y - e.clientY;
         if (height > 30) {
           setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
           setCurrentPos({ x: currentPos.x, y: e.clientY });
         }
       } else if (direction === 'bottom') {
-        let height = e.clientY - currentPos.y;
-        if (height < 30) height = 30;
-        setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
+        const height = e.clientY - currentPos.y;
+        if (height > 30)
+          setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
       }
     }
   };
 
-  const endResizeWindow = (e) => {
+  const endResizeWindow = (e: MouseEvent): void => {
     e.preventDefault();
     window.removeEventListener('mousemove', updateResizeWindow);
     window.removeEventListener('mouseup', endResizeWindow);
