@@ -102,6 +102,7 @@ const Container = styled.div`
   width: 100%;
   height: 30px;
   display: flex;
+  min-width: 300px;
   justify-content: space-between;
   align-items: center;
   background-color: white;

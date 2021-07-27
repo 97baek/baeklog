@@ -2,10 +2,6 @@ import styled from 'styled-components';
 
 interface IProps {
   isShowing: number;
-  style: {
-    posX: number;
-    posY: number;
-  };
 }
 
 // width: 100%;
@@ -17,14 +13,15 @@ export const WindowWrap = styled.div<IProps>`
   position: absolute;
   top: 0px;
   left: 0px;
-
-  min-width: 200px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  min-width: 300px;
   min-height: 30px;
   border: none;
   display: ${(props) => (props.isShowing > -1 ? 'flex' : 'none')};
   justify-content: flex-start;
   align-items: flex-start;
-  transition: all 0.5s ease 0s;
   z-index: ${(props) => props.isShowing};
   cursor: default;
 `;
