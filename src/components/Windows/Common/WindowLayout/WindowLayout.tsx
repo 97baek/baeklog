@@ -79,22 +79,52 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       if (direction === 'right') {
         const width = e.clientX - currentPos.x;
         if (width > 300) setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
+        if (e.clientX > window.innerWidth)
+          setcurrentSize({
+            w: window.innerWidth - currentPos.x,
+            h: currentSize.h,
+            isFull: currentSize.isFull,
+          });
       } else if (direction === 'left') {
         const width = currentSize.w + currentPos.x - e.clientX;
         if (width > 300) {
           setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
           setCurrentPos({ x: e.clientX, y: currentPos.y });
         }
+        if (e.clientX < 0) {
+          setCurrentPos({ x: 0, y: currentPos.y });
+          setcurrentSize({
+            w: currentSize.w + currentPos.x,
+            h: currentSize.h,
+            isFull: currentSize.isFull,
+          });
+        }
       } else if (direction === 'top') {
+        console.log(currentSize.h);
         const height = currentSize.h + currentPos.y - e.clientY;
         if (height > 30) {
           setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
           setCurrentPos({ x: currentPos.x, y: e.clientY });
         }
+        if (e.clientY < 0) {
+          setCurrentPos({ x: currentPos.x, y: 0 });
+          setcurrentSize({
+            w: currentSize.w,
+            h: currentSize.h + currentPos.y,
+            isFull: currentSize.isFull,
+          });
+        }
       } else if (direction === 'bottom') {
         const height = e.clientY - currentPos.y;
         if (height > 30)
           setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
+        if (e.clientY > window.innerHeight - 60) {
+          setcurrentSize({
+            w: currentSize.w,
+            h: window.innerHeight - 60 - currentPos.y,
+            isFull: currentSize.isFull,
+          });
+        }
       }
     }
   };

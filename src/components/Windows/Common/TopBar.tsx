@@ -58,12 +58,12 @@ const TopBar = ({ icon, title, setCurrentPos, setCurrentSize, currentSize }: IPr
       let windowY = mouseY - gapY;
 
       // 창이 화면 바깥(오른쪽 / 아래)으로 나갔는지 판별하는 변수
-      const overflowX = windowX + prevSize.w > window.innerWidth;
-      const overflowY = windowY + prevSize.h > window.innerHeight - TASKBARHEIGHT;
+      const overflowX = windowX + currentSize.w > window.innerWidth;
+      const overflowY = windowY + currentSize.h > window.innerHeight - TASKBARHEIGHT;
 
       // 창을 오른쪽 / 아래로 맞추기 위한 변수
-      const fitXToEnd = window.innerWidth - prevSize.w;
-      const fitYToEnd = window.innerHeight - prevSize.h - TASKBARHEIGHT;
+      const fitXToEnd = window.innerWidth - currentSize.w;
+      const fitYToEnd = window.innerHeight - currentSize.h - TASKBARHEIGHT;
       if (windowX < 0) windowX = 0;
       if (windowY < 0) windowY = 0;
       if (overflowX) windowX = fitXToEnd;
