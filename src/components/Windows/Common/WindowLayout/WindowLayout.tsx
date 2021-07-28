@@ -92,18 +92,24 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       let topHeight = currentSize.h + currentPos.y - e.clientY;
       let bottomHeight = e.clientY - currentPos.y;
 
-      if (e.clientX > window.innerWidth) rightWidth = window.innerWidth - currentPos.x;
-      if (e.clientX < 0) leftWidth = currentSize.w + currentPos.x;
-      if (e.clientY > window.innerHeight - 60)
-        bottomHeight = window.innerHeight - 60 - currentPos.y;
-      if (e.clientY < 0) topHeight = currentSize.h + currentPos.y;
+      let mouseX = e.clientX;
+      let mouseY = e.clientY;
+
+      if (mouseX > window.innerWidth) rightWidth = window.innerWidth - currentPos.x;
+      if (mouseX < 0) {
+        leftWidth = currentSize.w + currentPos.x;
+        mouseX = 0;
+      }
+      if (mouseY > window.innerHeight - 60) bottomHeight = window.innerHeight - 60 - currentPos.y;
+      if (mouseY < 0) {
+        topHeight = currentSize.h + currentPos.y;
+        mouseY = 0;
+      }
 
       if (direction === 'rt') {
-        const width = e.clientX - currentPos.x;
-        const height = currentSize.h + currentPos.y - e.clientY;
-        if (width > 300 && height > 30) {
-          setcurrentSize({ w: width, h: height, isFull: currentSize.isFull });
-          setCurrentPos({ x: currentPos.x, y: e.clientY });
+        if (rightWidth > 300 && topHeight > 30) {
+          setcurrentSize({ w: rightWidth, h: topHeight, isFull: currentSize.isFull });
+          setCurrentPos({ x: currentPos.x, y: mouseY });
         }
       } else if (direction === 'rb') {
       } else if (direction === 'right') {
@@ -112,15 +118,13 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       } else if (direction === 'left') {
         if (leftWidth > 300) {
           setcurrentSize({ w: leftWidth, h: currentSize.h, isFull: currentSize.isFull });
-          setCurrentPos({ x: e.clientX, y: currentPos.y });
+          setCurrentPos({ x: mouseX, y: currentPos.y });
         }
-        if (e.clientX < 0) setCurrentPos({ x: 0, y: currentPos.y });
       } else if (direction === 'top') {
         if (topHeight > 30) {
           setcurrentSize({ w: currentSize.w, h: topHeight, isFull: currentSize.isFull });
-          setCurrentPos({ x: currentPos.x, y: e.clientY });
+          setCurrentPos({ x: currentPos.x, y: mouseY });
         }
-        if (e.clientY < 0) setCurrentPos({ x: currentPos.x, y: 0 });
       } else if (direction === 'bottom') {
         if (bottomHeight > 30)
           setcurrentSize({ w: currentSize.w, h: bottomHeight, isFull: currentSize.isFull });
