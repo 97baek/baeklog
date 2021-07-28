@@ -54,8 +54,6 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     } else if (isCursorOnEdge(mouseY, top) || isCursorOnEdge(mouseY, bottom)) {
       setCurrentCursor('ns-resize');
     } else setCurrentCursor('default');
-
-    // console.log(direction);
   };
 
   const initResizeWindow = (e: React.MouseEvent): void => {
@@ -74,6 +72,9 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       isCursorOnEdge(mouseY, bottom)
     ) {
       if (isCursorOnEdge(mouseX, right) && isCursorOnEdge(mouseY, top)) setDirection('rt');
+      else if (isCursorOnEdge(mouseX, right) && isCursorOnEdge(mouseY, bottom)) setDirection('rb');
+      else if (isCursorOnEdge(mouseX, left) && isCursorOnEdge(mouseY, top)) setDirection('lt');
+      else if (isCursorOnEdge(mouseX, left) && isCursorOnEdge(mouseY, bottom)) setDirection('lb');
       else if (isCursorOnEdge(mouseX, right)) setDirection('right');
       else if (isCursorOnEdge(mouseX, left)) setDirection('left');
       else if (isCursorOnEdge(mouseY, top)) setDirection('top');
@@ -112,6 +113,19 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
           setCurrentPos({ x: currentPos.x, y: mouseY });
         }
       } else if (direction === 'rb') {
+        if (rightWidth > 300 && bottomHeight > 30) {
+          setcurrentSize({ w: rightWidth, h: bottomHeight, isFull: currentSize.isFull });
+        }
+      } else if (direction === 'lt') {
+        if (leftWidth > 300 && topHeight > 30) {
+          setcurrentSize({ w: leftWidth, h: topHeight, isFull: currentSize.isFull });
+          setCurrentPos({ x: mouseX, y: mouseY });
+        }
+      } else if (direction === 'lb') {
+        if (leftWidth > 300 && bottomHeight > 30) {
+          setcurrentSize({ w: leftWidth, h: bottomHeight, isFull: currentSize.isFull });
+          setCurrentPos({ x: mouseX, y: currentPos.y });
+        }
       } else if (direction === 'right') {
         if (rightWidth > 300)
           setcurrentSize({ w: rightWidth, h: currentSize.h, isFull: currentSize.isFull });
@@ -172,17 +186,3 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
 };
 
 export default Window;
-
-{
-  /* <TopBar
-startDragPos={startDragPos.current}
-delta={delta}
-setDelta={setDelta}
-originalCoord={originalCoord}
-setOriginalCoord={setOriginalCoord}
-posX={posX}
-posY={posY}
-icon={icon}
-title={title}
-/> */
-}
