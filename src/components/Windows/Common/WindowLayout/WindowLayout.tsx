@@ -39,7 +39,17 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
     const right = left + currentSize.w;
     const top = currentPos.y;
     const bottom = top + currentSize.h;
-    if (isCursorOnEdge(mouseX, left) || isCursorOnEdge(mouseX, right)) {
+    if (
+      (isCursorOnEdge(mouseX, right) && isCursorOnEdge(mouseY, top)) ||
+      (isCursorOnEdge(mouseX, left) && isCursorOnEdge(mouseY, bottom))
+    ) {
+      setCurrentCursor('nesw-resize');
+    } else if (
+      (isCursorOnEdge(mouseX, right) && isCursorOnEdge(mouseY, bottom)) ||
+      (isCursorOnEdge(mouseX, left) && isCursorOnEdge(mouseY, top))
+    ) {
+      setCurrentCursor('nwse-resize');
+    } else if (isCursorOnEdge(mouseX, left) || isCursorOnEdge(mouseX, right)) {
       setCurrentCursor('ew-resize');
     } else if (isCursorOnEdge(mouseY, top) || isCursorOnEdge(mouseY, bottom)) {
       setCurrentCursor('ns-resize');
@@ -63,7 +73,8 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
       isCursorOnEdge(mouseY, top) ||
       isCursorOnEdge(mouseY, bottom)
     ) {
-      if (isCursorOnEdge(mouseX, right)) setDirection('right');
+      if (isCursorOnEdge(mouseX, right) && isCursorOnEdge(mouseY, top)) setDirection('rt');
+      else if (isCursorOnEdge(mouseX, right)) setDirection('right');
       else if (isCursorOnEdge(mouseX, left)) setDirection('left');
       else if (isCursorOnEdge(mouseY, top)) setDirection('top');
       else if (isCursorOnEdge(mouseY, bottom)) setDirection('bottom');
@@ -76,55 +87,43 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
 
   const updateResizeWindow = (e: MouseEvent): void => {
     if (isResizing) {
-      if (direction === 'right') {
+      let rightWidth = e.clientX - currentPos.x;
+      let leftWidth = currentSize.w + currentPos.x - e.clientX;
+      let topHeight = currentSize.h + currentPos.y - e.clientY;
+      let bottomHeight = e.clientY - currentPos.y;
+
+      if (e.clientX > window.innerWidth) rightWidth = window.innerWidth - currentPos.x;
+      if (e.clientX < 0) leftWidth = currentSize.w + currentPos.x;
+      if (e.clientY > window.innerHeight - 60)
+        bottomHeight = window.innerHeight - 60 - currentPos.y;
+      if (e.clientY < 0) topHeight = currentSize.h + currentPos.y;
+
+      if (direction === 'rt') {
         const width = e.clientX - currentPos.x;
-        if (width > 300) setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
-        if (e.clientX > window.innerWidth)
-          setcurrentSize({
-            w: window.innerWidth - currentPos.x,
-            h: currentSize.h,
-            isFull: currentSize.isFull,
-          });
-      } else if (direction === 'left') {
-        const width = currentSize.w + currentPos.x - e.clientX;
-        if (width > 300) {
-          setcurrentSize({ w: width, h: currentSize.h, isFull: currentSize.isFull });
-          setCurrentPos({ x: e.clientX, y: currentPos.y });
-        }
-        if (e.clientX < 0) {
-          setCurrentPos({ x: 0, y: currentPos.y });
-          setcurrentSize({
-            w: currentSize.w + currentPos.x,
-            h: currentSize.h,
-            isFull: currentSize.isFull,
-          });
-        }
-      } else if (direction === 'top') {
-        console.log(currentSize.h);
         const height = currentSize.h + currentPos.y - e.clientY;
-        if (height > 30) {
-          setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
+        if (width > 300 && height > 30) {
+          setcurrentSize({ w: width, h: height, isFull: currentSize.isFull });
           setCurrentPos({ x: currentPos.x, y: e.clientY });
         }
-        if (e.clientY < 0) {
-          setCurrentPos({ x: currentPos.x, y: 0 });
-          setcurrentSize({
-            w: currentSize.w,
-            h: currentSize.h + currentPos.y,
-            isFull: currentSize.isFull,
-          });
+      } else if (direction === 'rb') {
+      } else if (direction === 'right') {
+        if (rightWidth > 300)
+          setcurrentSize({ w: rightWidth, h: currentSize.h, isFull: currentSize.isFull });
+      } else if (direction === 'left') {
+        if (leftWidth > 300) {
+          setcurrentSize({ w: leftWidth, h: currentSize.h, isFull: currentSize.isFull });
+          setCurrentPos({ x: e.clientX, y: currentPos.y });
         }
+        if (e.clientX < 0) setCurrentPos({ x: 0, y: currentPos.y });
+      } else if (direction === 'top') {
+        if (topHeight > 30) {
+          setcurrentSize({ w: currentSize.w, h: topHeight, isFull: currentSize.isFull });
+          setCurrentPos({ x: currentPos.x, y: e.clientY });
+        }
+        if (e.clientY < 0) setCurrentPos({ x: currentPos.x, y: 0 });
       } else if (direction === 'bottom') {
-        const height = e.clientY - currentPos.y;
-        if (height > 30)
-          setcurrentSize({ w: currentSize.w, h: height, isFull: currentSize.isFull });
-        if (e.clientY > window.innerHeight - 60) {
-          setcurrentSize({
-            w: currentSize.w,
-            h: window.innerHeight - 60 - currentPos.y,
-            isFull: currentSize.isFull,
-          });
-        }
+        if (bottomHeight > 30)
+          setcurrentSize({ w: currentSize.w, h: bottomHeight, isFull: currentSize.isFull });
       }
     }
   };
