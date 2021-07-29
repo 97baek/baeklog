@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import TopBar from '@components/Windows/Common/TopBar';
-import { Contents, WindowContainer, WindowWrap } from './styles';
+import { Contents, ContentsWrapper, WindowContainer, WindowWrap } from './styles';
 
 interface IProps {
   icon: string;
@@ -21,7 +21,7 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
   const [isResizing, setIsResizing] = useState(false);
   const [direction, setDirection] = useState('');
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [currentSize, setcurrentSize] = useState<ISize>({ w: 400, h: 300, isFull: false });
+  const [currentSize, setcurrentSize] = useState<ISize>({ w: 400, h: 300, isFull: true });
   const [currentCursor, setCurrentCursor] = useState('default');
 
   const styleProps = {
@@ -183,7 +183,9 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
           icon={icon}
           title={title}
         />
-        <Contents>{children}</Contents>
+        <ContentsWrapper>
+          <Contents>{children}</Contents>
+        </ContentsWrapper>
       </WindowContainer>
     </WindowWrap>
   );

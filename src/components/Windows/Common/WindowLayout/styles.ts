@@ -40,11 +40,22 @@ export const WindowContainer = styled.div`
   border: 1px solid black;
 `;
 
-export const Contents = styled.div`
+export const ContentsWrapper = styled.div`
   width: 100%;
   height: calc(100% - 31px);
   display: flex;
   flex-wrap: wrap;
   min-width: 300px;
   background-color: gray;
+`;
+
+export const Contents = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: auto;
+  background: rgb(234, 234, 234);
 `;
