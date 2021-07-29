@@ -9,13 +9,19 @@ interface IProps {
   children: React.ReactChild;
 }
 
+export interface ISize {
+  w: number;
+  h: number;
+  isFull?: boolean;
+}
+
 const Window = ({ icon, title, isShowing, children }: IProps) => {
   const ref = useRef<HTMLDivElement>(null);
 
   const [isResizing, setIsResizing] = useState(false);
   const [direction, setDirection] = useState('');
   const [currentPos, setCurrentPos] = useState({ x: 0, y: 0 });
-  const [currentSize, setcurrentSize] = useState({ w: 400, h: 300, isFull: false });
+  const [currentSize, setcurrentSize] = useState<ISize>({ w: 400, h: 300, isFull: false });
   const [currentCursor, setCurrentCursor] = useState('default');
 
   const styleProps = {
@@ -109,39 +115,37 @@ const Window = ({ icon, title, isShowing, children }: IProps) => {
 
       if (direction === 'rt') {
         if (rightWidth > 300 && topHeight > 30) {
-          setcurrentSize({ w: rightWidth, h: topHeight, isFull: currentSize.isFull });
+          setcurrentSize({ w: rightWidth, h: topHeight });
           setCurrentPos({ x: currentPos.x, y: mouseY });
         }
       } else if (direction === 'rb') {
         if (rightWidth > 300 && bottomHeight > 30) {
-          setcurrentSize({ w: rightWidth, h: bottomHeight, isFull: currentSize.isFull });
+          setcurrentSize({ w: rightWidth, h: bottomHeight });
         }
       } else if (direction === 'lt') {
         if (leftWidth > 300 && topHeight > 30) {
-          setcurrentSize({ w: leftWidth, h: topHeight, isFull: currentSize.isFull });
+          setcurrentSize({ w: leftWidth, h: topHeight });
           setCurrentPos({ x: mouseX, y: mouseY });
         }
       } else if (direction === 'lb') {
         if (leftWidth > 300 && bottomHeight > 30) {
-          setcurrentSize({ w: leftWidth, h: bottomHeight, isFull: currentSize.isFull });
+          setcurrentSize({ w: leftWidth, h: bottomHeight });
           setCurrentPos({ x: mouseX, y: currentPos.y });
         }
       } else if (direction === 'right') {
-        if (rightWidth > 300)
-          setcurrentSize({ w: rightWidth, h: currentSize.h, isFull: currentSize.isFull });
+        if (rightWidth > 300) setcurrentSize({ w: rightWidth, h: currentSize.h });
       } else if (direction === 'left') {
         if (leftWidth > 300) {
-          setcurrentSize({ w: leftWidth, h: currentSize.h, isFull: currentSize.isFull });
+          setcurrentSize({ w: leftWidth, h: currentSize.h });
           setCurrentPos({ x: mouseX, y: currentPos.y });
         }
       } else if (direction === 'top') {
         if (topHeight > 30) {
-          setcurrentSize({ w: currentSize.w, h: topHeight, isFull: currentSize.isFull });
+          setcurrentSize({ w: currentSize.w, h: topHeight });
           setCurrentPos({ x: currentPos.x, y: mouseY });
         }
       } else if (direction === 'bottom') {
-        if (bottomHeight > 30)
-          setcurrentSize({ w: currentSize.w, h: bottomHeight, isFull: currentSize.isFull });
+        if (bottomHeight > 30) setcurrentSize({ w: currentSize.w, h: bottomHeight });
       }
     }
   };
