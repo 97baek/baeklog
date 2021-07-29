@@ -7,6 +7,12 @@ const GlobalStyle = createGlobalStyle`
     padding:0;
     cursor:default;
   }
+
+  ul {
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+  }
 `;
 
 interface IProps {
