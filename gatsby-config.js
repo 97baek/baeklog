@@ -21,5 +21,12 @@ module.exports = {
     'gatsby-plugin-styled-components',
     'gatsby-plugin-gatsby-cloud',
     'gatsby-plugin-typescript',
+    {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `src`,
+        path: `${__dirname}/src/pages`,
+      },
+    },
   ],
 };
