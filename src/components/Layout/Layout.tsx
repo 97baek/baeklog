@@ -1,3 +1,4 @@
+import Taskbar from '@components/Taskbar';
 import React from 'react';
 import { createGlobalStyle } from 'styled-components';
 
@@ -26,6 +27,7 @@ const Layout = ({ children }: IProps) => {
       <main style={{ margin: '0px', padding: '0px', position: 'relative', height: '100vh' }}>
         {children}
       </main>
+      <Taskbar />
     </>
   );
 };
