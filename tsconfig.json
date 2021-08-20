@@ -19,6 +19,6 @@
       "@lib/*": ["lib/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", "gatsby-meta-config.js", "src/utils/typography.js"],
   "exclude": ["node_modules", "public", ".cache"]
 }
